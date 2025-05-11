@@ -1,0 +1,12 @@
+pandas
+scikit-learn
+numpy
+great_expectations
+mlflow
+fastapi
+uvicorn
+pytest
+watchdog
+requests
+pydantic
+airflow
