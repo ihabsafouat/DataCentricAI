@@ -9,4 +9,6 @@ pytest
 watchdog
 requests
 pydantic
-airflow
+boto3
+psycopg2-binary
+python-dotenv
