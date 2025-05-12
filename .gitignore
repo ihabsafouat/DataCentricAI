@@ -1,3 +1,5 @@
 # Python virtual environments
 .venv/
 venv/
+# Ignore large data files
+data/raw/
