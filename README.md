@@ -19,16 +19,23 @@ subset with mood  - Train & evaluate a mood classification model
 ---
 
 ## 🧱 Project Structure
+```
+mlops-data-centric-ai/
+│
+|      ├── dags/ # Airflow DAGs for data ingestion
+|      ├── src/
+|      |     ├── data_ingestion.py # Download & extract data
+│      |     ├──label_breeds.py # Use HF model to predict breed
+│      |     ├──upload_to_minio.py # Upload data to MinIO
+│      |     ├── save_metadata.py #Save metadata to PostgreSQL
+│      └── mood_labelling.py # Manual
+|                 /heuristic mood labels 
+|      ├── Dockerfile
+|      ├── docker-compose.yml
+|      ├──requirements.txt
+└── README.md
 
-mlops-data-centric-ai/ │ ├── dags/ # Airflow DAGs for data ingestion
-├── src/ │ ├── data_ingestion.py # Download & extract data │ ├──
-label_breeds.py # Use HF model to predict breed │ ├──
-upload_to_minio.py # Upload data to MinIO │ ├── save_metadata.py #
-Save metadata to PostgreSQL │ └── mood_labelling.py # Manual /
-heuristic mood labels │ ├── Dockerfile ├── docker-compose.yml ├──
-requirements.txt └── README.md
-
-yaml Copy Edit
+```
 
 ---
 
