@@ -12,3 +12,7 @@ pydantic
 boto3
 psycopg2-binary
 python-dotenv
+sqlalchemy
+apache-airflow
+minio
+

@@ -1,11 +1,25 @@
 version: '3.8'
 
 services:
+
+  # PostgreSQL for metadata
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: datacentric
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # MinIO (self-hosted S3)
   minio:
     image: minio/minio
     ports:
-      - "9000:9000"       # S3 endpoint
-      - "9001:9001"       # MinIO web UI
+      - "9000:9000"
+      - "9001:9001"
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
@@ -13,20 +27,72 @@ services:
       - minio_data:/data
     command: server /data --console-address ":9001"
 
-  postgres:
-    image: postgres:14
-    container_name: postgres_pet_mood
-    restart: always
+  # Your custom service
+  ingestion:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - minio
     environment:
-      POSTGRES_USER: ihab
-      POSTGRES_PASSWORD: ihab123
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: datacentric
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+
+  # Airflow
+  airflow-init:
+    image: apache/airflow:2.8.1
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@postgres/datacentric
+    entrypoint: ["airflow", "db", "init"]
+
+  airflow-webserver:
+    image: apache/airflow:2.8.1
+    restart: always
+    depends_on:
+      - postgres
+      - airflow-init
     ports:
-      - "5432:5432"
+      - "8080:8080"
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@postgres/datacentric
+    command: ["webserver"]
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./db_init:/docker-entrypoint-initdb.d
+      - ./dags:/opt/airflow/dags
+      - ./ingestion:/opt/airflow/ingestion  # Add this line
+      - ./plugins:/opt/airflow/plugins
+
+
+  airflow-scheduler:
+    image: apache/airflow:2.8.1
+    restart: always
+    depends_on:
+      - airflow-webserver
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@postgres/datacentric
+    command: ["scheduler"]
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./ingestion:/opt/airflow/ingestion  # Add this line
+      - ./plugins:/opt/airflow/plugins
+
 
 
 volumes:
-  minio_data:
   postgres_data:
+  minio_data:
