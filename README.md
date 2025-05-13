@@ -1,45 +1,45 @@
-\# 🐶 Pet Mood Detector - Data-Centric AI Project
+# 🐶 Pet Mood Detector - Data-Centric AI Project
 
-This project implements a \*\*Pet Mood Detection System\*\* inspired by
-the paper \_\"Data-Centric AI: A Systematic Treatment\"\_ by Andrew Ng
+This project implements a **Pet Mood Detection System** inspired by
+the paper _"Data-Centric AI: A Systematic Treatment"_ by Andrew Ng
 et al. It leverages MLOps best practices to iteratively improve data
 quality and model performance.
 
-\-\--
+---
 
-\## 📌 Project Summary
+## 📌 Project Summary
 
-\- \*\*Goal\*\*: Predict a pet's mood (e.g., \`happy\`, \`sad\`,
-\`neutral\`) from an image. - \*\*Dataset\*\*: Oxford-IIIT Pet Dataset
-(\`images.tar.gz\`) - \*\*Approach\*\*:  - Download & validate data  -
+- **Goal**: Predict a pet's mood (e.g., `happy`, `sad`,
+`neutral`) from an image. - **Dataset**: Oxford-IIIT Pet Dataset
+(`images.tar.gz`) - **Approach**:  - Download & validate data  -
 Upload to MinIO (S3)  - Store metadata in PostgreSQL  - Bootstrap breed
-labels using \`muellje3/vit-base-oxford-iiit-pets\`  - Manually label a
+labels using `muellje3/vit-base-oxford-iiit-pets`  - Manually label a
 subset with mood  - Train & evaluate a mood classification model
 
-\-\--
+---
 
-\## 🧱 Project Structure
+## 🧱 Project Structure
 
-mlops-data-centric-ai/ │ ├── dags/ \# Airflow DAGs for data ingestion
-├── src/ │ ├── data_ingestion.py \# Download & extract data │ ├──
-label_breeds.py \# Use HF model to predict breed │ ├──
-upload_to_minio.py \# Upload data to MinIO │ ├── save_metadata.py \#
-Save metadata to PostgreSQL │ └── mood_labelling.py \# Manual /
+mlops-data-centric-ai/ │ ├── dags/ # Airflow DAGs for data ingestion
+├── src/ │ ├── data_ingestion.py # Download & extract data │ ├──
+label_breeds.py # Use HF model to predict breed │ ├──
+upload_to_minio.py # Upload data to MinIO │ ├── save_metadata.py #
+Save metadata to PostgreSQL │ └── mood_labelling.py # Manual /
 heuristic mood labels │ ├── Dockerfile ├── docker-compose.yml ├──
 requirements.txt └── README.md
 
 yaml Copy Edit
 
-\-\--
+---
 
-\## ⚙️ Setup & Run
+## ⚙️ Setup & Run
 
-\### 1. Clone the Repo
+### 1. Clone the Repo
 
-\`\`\`bash git clone
+```bash git clone
 https://github.com/your-username/mlops-data-centric-ai.git cd
 mlops-data-centric-ai 2. Start the MLOps Stack bash Copy Edit
-docker-compose up \--build Access:
+docker-compose up --build Access:
 
 Airflow UI → http://localhost:8080
 
@@ -49,70 +49,77 @@ Username: minioadmin
 
 Password: minioadmin
 
-PostgreSQL → localhost:5432 (user: postgres, password: postgres)
+PostgreSQL → localhost:5432 (user: postgres, password: postgres) 
 
-# 3\. Run Airflow DAG for Ingestion Enable and trigger the
-data_ingestion_dag in the Airflow UI to:
+```
 
-Download & extract data
+# 3. Run Airflow DAG for Ingestion Enable and trigger the
+### data_ingestion_dag in the Airflow UI to:
 
-Upload to MinIO
+### Download & extract data
 
-Save metadata in PostgreSQL
+### Upload to MinIO
 
-## 🔍 Labeling & Mood Detection Breed Labeling Run:
+### Save metadata in PostgreSQL
 
-bash Copy Edit python src/label_breeds.py This uses the Hugging Face
+# 🔍 Labeling & Mood Detection Breed Labeling Run:
+
+``` 
+bash 
+ 
+Copy Edit python src/label_breeds.py This uses the Hugging Face
+
 model muellje3/vit-base-oxford-iiit-pets to generate breed predictions.
 
 Mood Labeling Create a CSV: mood.csv with columns: image, breed, mood
 
 Labels can be created manually or with weak heuristics
 
-## 📊 Model Training (Coming Soon) A separate DAG or script will:
+```
 
-Load labeled images
+# 📊 Model Training (Coming Soon) A separate DAG or script will:
 
-Train a mood classification model (e.g. ViT or CNN)
+### Load labeled images
 
-Evaluate accuracy, precision, recall
+### Train a mood classification model (e.g. ViT or CNN)
 
-Store results in PostgreSQL
+### Evaluate accuracy, precision, recall
+
+### Store results in PostgreSQL
 
 ## 📌 Paper Reference This project is inspired by:
 
-Data-Centric AI: A Systematic Treatment Andrew Ng, et al.
-arXiv:2205.01580
+### Data-Centric AI: A Systematic Treatment Andrew Ng, et al. arXiv:2205.01580
 
-## 🛠️ Tech Stack 🐍 Python 3.10
+# 🛠️ Tech Stack 🐍 Python 3.10
 
-# ☁️ MinIO (S3-compatible)
+### ☁️ MinIO (S3-compatible)
 
-# 🐘 PostgreSQL
+### 🐘 PostgreSQL
 
-# 📅 Apache Airflow 2.8
+### 📅 Apache Airflow 2.8
 
-# 🤗 Hugging Face Transformers
+### 🤗 Hugging Face Transformers
 
-# 🐳 Docker Compose
+### 🐳 Docker Compose
 
-# ✅ TODO Data ingestion DAG
+### ✅ TODO Data ingestion DAG
 
-# Upload to MinIO
+### Upload to MinIO
 
-# Metadata to PostgreSQL
+### Metadata to PostgreSQL
 
-# Breed labeling with HF model
+### Breed labeling with HF model
 
-# Mood label propagation
+### Mood label propagation
 
-# Model training + evaluation
+### Model training + evaluation
 
-# Model registry + inference pipeline
+### Model registry + inference pipeline
 
-## 👥 Contributing Feel free to fork and submit PRs! Contributions to mood
+# 👥 Contributing Feel free to fork and submit PRs! Contributions to mood
 labeling, evaluation pipelines, or metrics visualization are welcome.
 
-## 📄 License MIT License -- feel free to use and adapt.
+# 📄 License MIT License -- feel free to use and adapt.
 
 
