@@ -45,31 +45,23 @@ Airflow UI → http://localhost:8080
 
 MinIO Console → http://localhost:9001
 
-Username: minioadmin
-
-Password: minioadmin
-
-PostgreSQL → localhost:5432 (user: postgres, password: postgres) 
-
 ```
 
 # 3. Run Airflow DAG for Ingestion Enable and trigger the
-### data_ingestion_dag in the Airflow UI to:
+#### data_ingestion_dag in the Airflow UI to:
 
-### Download & extract data
+#### Download & extract data
 
-### Upload to MinIO
+#### Upload to MinIO
 
-### Save metadata in PostgreSQL
+#### Save metadata in PostgreSQL
 
 # 🔍 Labeling & Mood Detection Breed Labeling Run:
 
 ``` 
 bash 
  
-Copy Edit python src/label_breeds.py This uses the Hugging Face
-
-model muellje3/vit-base-oxford-iiit-pets to generate breed predictions.
+Copy Edit python src/label_breeds.py 
 
 Mood Labeling Create a CSV: mood.csv with columns: image, breed, mood
 
@@ -79,13 +71,13 @@ Labels can be created manually or with weak heuristics
 
 # 📊 Model Training (Coming Soon) A separate DAG or script will:
 
-### Load labeled images
+#### Load labeled images
 
-### Train a mood classification model (e.g. ViT or CNN)
+#### Train a mood classification model (e.g. ViT or CNN)
 
-### Evaluate accuracy, precision, recall
+#### Evaluate accuracy, precision, recall
 
-### Store results in PostgreSQL
+#### Store results in PostgreSQL
 
 ## 📌 Paper Reference This project is inspired by:
 
@@ -93,29 +85,29 @@ Labels can be created manually or with weak heuristics
 
 # 🛠️ Tech Stack 🐍 Python 3.10
 
-### ☁️ MinIO (S3-compatible)
+#### ☁️ MinIO (S3-compatible)
 
-### 🐘 PostgreSQL
+#### 🐘 PostgreSQL
 
-### 📅 Apache Airflow 2.8
+#### 📅 Apache Airflow 2.8
 
-### 🤗 Hugging Face Transformers
+#### 🤗 Hugging Face Transformers
 
-### 🐳 Docker Compose
+#### 🐳 Docker Compose
 
-### ✅ TODO Data ingestion DAG
+#### ✅ TODO Data ingestion DAG
 
-### Upload to MinIO
+#### Upload to MinIO
 
-### Metadata to PostgreSQL
+#### Metadata to PostgreSQL
 
-### Breed labeling with HF model
+#### Breed labeling with HF model
 
-### Mood label propagation
+#### Mood label propagation
 
-### Model training + evaluation
+#### Model training + evaluation
 
-### Model registry + inference pipeline
+#### Model registry + inference pipeline
 
 # 👥 Contributing Feel free to fork and submit PRs! Contributions to mood
 labeling, evaluation pipelines, or metrics visualization are welcome.
