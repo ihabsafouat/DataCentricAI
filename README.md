@@ -25,6 +25,9 @@ quality and model performance.
 mlops-data-centric-ai/
 │
 |      ├── dags/ # Airflow DAGs for data ingestion
+|      ├── data/
+|      ├── ingestion/
+|      ├── models/
 |      ├── src/
 |      |     ├── data_ingestion.py # Download & extract data
 │      |     ├──label_breeds.py # Use HF model to predict breed
