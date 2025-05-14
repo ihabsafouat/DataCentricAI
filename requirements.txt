@@ -15,4 +15,7 @@ python-dotenv
 sqlalchemy
 apache-airflow
 minio
+csv2
+tensorflow==2.13.0
+
 
