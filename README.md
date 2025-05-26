@@ -9,12 +9,14 @@ quality and model performance.
 
 ## 📌 Project Summary
 
-- **Goal**: Predict a pet's mood (e.g., `happy`, `sad`,
-`neutral`) from an image. - **Dataset**: Oxford-IIIT Pet Dataset
-(`images.tar.gz`) - **Approach**:  - Download & validate data  -
-Upload to MinIO (S3)  - Store metadata in PostgreSQL  - Bootstrap breed
-labels using `muellje3/vit-base-oxford-iiit-pets`  - Manually label a
-subset with mood  - Train & evaluate a mood classification model
+- **Goal**:
+- Predict a pet's mood (e.g., `happy`, `sad`,`neutral`) from an image.
+- **Dataset**: Oxford-IIIT Pet Dataset (`images.tar.gz`)
+-**Approach**:
+  - Download & validate data
+  - Upload to MinIO (S3)
+  - Store metadata in PostgreSQL
+  - Train & evaluate a mood classification model
 
 ---
 
@@ -23,6 +25,9 @@ subset with mood  - Train & evaluate a mood classification model
 mlops-data-centric-ai/
 │
 |      ├── dags/ # Airflow DAGs for data ingestion
+|      ├── data/
+|      ├── ingestion/
+|      ├── models/
 |      ├── src/
 |      |     ├── data_ingestion.py # Download & extract data
 │      |     ├──label_breeds.py # Use HF model to predict breed
