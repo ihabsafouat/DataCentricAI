@@ -124,6 +124,6 @@ Labels can be created manually or with weak heuristics
 # 👥 Contributing Feel free to fork and submit PRs! Contributions to mood
 labeling, evaluation pipelines, or metrics visualization are welcome.
 
-# 📄 License MIT License -- feel free to use and adapt..
+# 📄 License MIT License -- feel free to use and adapt...
 
 
