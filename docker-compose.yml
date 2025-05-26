@@ -92,6 +92,18 @@ services:
       - ./plugins:/opt/airflow/plugins
 
 
+    mlflow:
+      image: ghcr.io/mlflow/mlflow
+      ports:
+        - "5000:5000"
+      volumes:
+        - ./mlruns:/mlflow/mlruns
+      environment:
+        - MLFLOW_TRACKING_URI=http://mlflow:5000
+      command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --default-artifact-root /mlflow/mlruns
+
+
+
 
 volumes:
   postgres_data:

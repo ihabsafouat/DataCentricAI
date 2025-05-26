@@ -2,6 +2,20 @@ import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 import os
 import boto3
+import mlflow
+import mlflow.tensorflow
+
+
+
+
+
+
+
+
+
+# Set up MLflow tracking
+mlflow.set_tracking_uri("http://mlflow:5000")
+mlflow.set_experiment("CNN Fashion MNIST")
 
 
 
@@ -67,14 +81,25 @@ def main():
     class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
     
-    model = build_model()
-    # Train the model
-    epochs = int(os.getenv("EPOCHS", 5))
-    model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
+    with mlflow.start_run():
+        
+        # Optionally register model
+        mlflow.tensorflow.log_model(model, "model")
+        model = build_model()
+        # Train the model
+        epochs = int(os.getenv("EPOCHS", 5))
+        model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
+        loss, acc = model.evaluate(test_images, test_labels)
+        print(f"✅ Test accuracy: {acc:.4f}")
+        # Log metrics
+        mlflow.log_metric("accuracy", acc)
+        mlflow.log_param("epochs", 10)
+        mlflow.log_artifact("model.h5")
+         # Optionally register model
+        mlflow.tensorflow.log_model(model, "model")
+        mlflow.register_model("runs:/<run_id>/model", "CNNFashionMNISTModel")
 
-
-    loss, acc = model.evaluate(test_images, test_labels)
-    print(f"✅ Test accuracy: {acc:.4f}")
+    
 
     # Save model
     os.makedirs("models", exist_ok=True)

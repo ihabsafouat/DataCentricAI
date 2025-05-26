@@ -1,0 +1,43 @@
+{
+  "schema_validation": {
+    "passed": false
+  },
+  "statistical_validation": {
+    "passed": false,
+    "metrics": {
+      "image": {
+        "mean": 127.3840306122449,
+        "std": 80.84927141821505,
+        "min": 0.0,
+        "max": 255.0,
+        "shape": [
+          100,
+          28,
+          28
+        ]
+      },
+      "labels": {
+        "distribution": {
+          "0": 12,
+          "1": 9,
+          "2": 13,
+          "3": 9,
+          "4": 10,
+          "5": 6,
+          "6": 9,
+          "7": 10,
+          "8": 9,
+          "9": 13
+        },
+        "class_balance": 0.20493901531919198
+      }
+    },
+    "errors": [
+      "Unbalanced class distribution detected"
+    ]
+  },
+  "passed": false,
+  "errors": [
+    "Schema validation failed: expected series 'label' to have type int64, got int32"
+  ]
+}

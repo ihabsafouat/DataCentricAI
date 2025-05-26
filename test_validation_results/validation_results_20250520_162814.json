@@ -1,0 +1,41 @@
+{
+  "schema_validation": {
+    "passed": true
+  },
+  "statistical_validation": {
+    "passed": false,
+    "metrics": {
+      "image": {
+        "mean": 127.04364795918367,
+        "std": 74.03089611472724,
+        "min": 0.0,
+        "max": 255.0,
+        "shape": [
+          100,
+          28,
+          28
+        ]
+      },
+      "labels": {
+        "distribution": {
+          "0": 10,
+          "1": 8,
+          "2": 14,
+          "3": 11,
+          "4": 6,
+          "5": 8,
+          "6": 11,
+          "7": 11,
+          "8": 10,
+          "9": 11
+        },
+        "class_balance": 0.20976176963403032
+      }
+    },
+    "errors": [
+      "Unbalanced class distribution detected"
+    ]
+  },
+  "passed": false,
+  "errors": []
+}
